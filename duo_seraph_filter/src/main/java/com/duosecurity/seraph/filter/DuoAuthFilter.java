@@ -80,6 +80,20 @@ public class DuoAuthFilter implements javax.servlet.Filter {
     }
     return false;
   }
+  
+  private Response sendAuthRequest(String factor, String username, String user_id, String ipaddr, boolean async, String type, String pushinfo, String device, String passcode) throws Exception {
+    Http request = new Http("POST", host, "/auth/v2/auth", 10);
+	request.addParam("factor", "push");
+    request.addParam("username", username);
+	request.addParam("ipaddr", ipaddr);
+	request.addParam("type", "JIRA MFA Login");
+	request.addParam("display_username", username)
+	request.addParam("device", "auto");
+	request.addParam("async", "1"),
+    request.signRequest(ikey, skey);
+    return request.executeHttpRequest();
+  }
+
 
   private Response sendPreAuthRequest(String username) throws Exception {
     Http request = new Http("POST", host, "/auth/v2/preauth", 10);
@@ -211,7 +225,17 @@ public class DuoAuthFilter implements javax.servlet.Filter {
         chain.doFilter(request, response);
         return;
       } else {
-        redirectDuoAuth(principal, httpServletRequest, httpServletResponse, contextPath);
+//        redirectDuoAuth(principal, httpServletRequest, httpServletResponse, contextPath);
+		sendAuthRequest("", principal.getName(), "", httpServletRequest.getRemoteAddr(), true, "", "", "", "");
+		String result = preauthWithRetries(MAX_TRIES, principal);      
+		if (result.equals("ALLOW") || result.equals("FAILOPEN")) {
+			session.setAttribute(DUO_AUTH_SUCCESS_KEY, true);
+			chain.doFilter(request, response);
+			return;
+		} else {
+			redirectDuoAuth(principal, httpServletRequest, httpServletResponse, contextPath);
+			return;
+		}
         return;
       }
     }
