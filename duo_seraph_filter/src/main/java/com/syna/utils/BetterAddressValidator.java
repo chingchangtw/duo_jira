@@ -9,7 +9,7 @@ public class BetterAddressValidator {
 
         public static void main(String [] args){
             String[] whiteList = {"10.0.0.0/8", "172.16.0.0/16", "192.168.11.1"};
-            String[] blackList = {"192.168.11.1"};
+            String[] blackList = {"10.31.31.105"};
 
             BetterAddressValidator whiteListValidator = new BetterAddressValidator( whiteList);
             BetterAddressValidator blackListValidator = new BetterAddressValidator( blackList);
@@ -37,10 +37,10 @@ public class BetterAddressValidator {
                 System.out.println("Black is wrong");
             }
             else {
-                if (whiteListValidator.isInRange(remoteAddr))
-                    System.out.println("White is correct");
+                if (!whiteListValidator.isInRange(remoteAddr))
+                    System.out.println("Not White is correct");
                 else
-                    System.out.println("None is wrong");
+                    System.out.println("None is correct");
             }
 
             remoteAddr = "172.16.1.1";
@@ -48,13 +48,13 @@ public class BetterAddressValidator {
                 System.out.println("Black is wrong");
             }
             else {
-                if (whiteListValidator.isInRange(remoteAddr))
-                    System.out.println("White is correct");
+                if (!whiteListValidator.isInRange(remoteAddr))
+                    System.out.println("Not White is wrong");
                 else
-                    System.out.println("None is wrong");
+                    System.out.println("None is correct");
             }
 
-            remoteAddr = "192.168.11.1";
+            remoteAddr = "10.31.31.105";
             if (blackListValidator.isInRange(remoteAddr))
                 System.out.println("Black is right");
             else {
@@ -68,10 +68,10 @@ public class BetterAddressValidator {
             if (blackListValidator.isInRange(remoteAddr))
                 System.out.println("Black is wrong");
             else {
-                if (whiteListValidator.isInRange(remoteAddr))
-                    System.out.println("White is wrong");
+                if (!whiteListValidator.isInRange(remoteAddr))
+                    System.out.println("Not White is correct");
                 else
-                    System.out.println("None is right");
+                    System.out.println("None is wrong");
             }
 
 
