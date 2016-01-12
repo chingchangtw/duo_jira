@@ -24,7 +24,7 @@
       <groupId>com.duosecurity</groupId>
       <artifactId>DuoWeb</artifactId>
       <version>1.1-SNAPSHOT</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -41,7 +41,13 @@
       <groupId>com.duosecurity</groupId>
       <artifactId>duo-client</artifactId>
       <version>0.2.1</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+    <groupId>commons-net</groupId>
+    <artifactId>commons-net</artifactId>
+    <version>3.3</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
