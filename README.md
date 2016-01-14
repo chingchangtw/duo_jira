@@ -19,7 +19,7 @@ cp etc/commons-net-3.3.jar $JIRA_DIR/atlassian-jira/WEB-INF/lib</b>
 ###	Re-build customized Seraph Filter 
 Re-build your own customized Seraph Filter 
 ```sh
-git clone git://github.com/duosecurity/duo_java.git
+git clone git://github.com/chingchangtw/duo_java.git
 cd duo_java/duo_seraph_filter
 atlas-mvn package
 ```
